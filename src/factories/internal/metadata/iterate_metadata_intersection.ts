@@ -210,3 +210,10 @@ export const iterate_metadata_intersection = (
   if (tags.length) assigners.forEach((fn) => fn(tags));
   return true;
 };
+
+function isNoRuntimeCheck(meta: MetadataObject): boolean {
+  // This is a hack: there is probably a better, structured way to ensure Metadata describes
+  // a specific type, but I've not found it, nor di I have a need for it.
+  return Boolean(meta.properties[0]?.key.constants[0]?.values[0]?.value === 'typia.tag')
+    && meta.name.startsWith('NoRuntimeCheck');
+}
